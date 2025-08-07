@@ -1,0 +1,896 @@
+Name	Merkmal		Regel 1		Regel 2		Regel 3		Regel 4		Regel 5		Regel 6		Regel 7		Regel 8		Regel 9		Regel 10		Regel 11		Regel 12		Regel 13
+Vererbung
+Ist das Merkmal das über die regeln definiert/beschränkt ist	Bezieht sich immer auf Merkmal aus A Horizontal sind es Oder regeln Vertikal und verknüpft z.b. mehrer Merkmale
+BK_NETZSPANNUNGSTYP	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTLAENGEMIN	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTLAENGEMAX	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTBREITEMIN	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTBREITEMAX	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTHOEHEMIN	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTHOEHEMAX	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTTOLERMIN	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTTOLERPLU	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_SONDERLACK	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_SONDERLACKTYP	GM_VERERBUNGUEBERSCH	=	Ja		Nein		Ja		Nein		ELSE
+	BK_SONDERLACK	=	Ja		Ja		Nein		Nein
+
+
+	Bereich		-N/A		-N/A		+N/A		+N/A
+	Wert						N/A		N/A
+	Relevant
+	Multiselekt		WAHR		WAHR		FALSCH		FALSCH
+	Keine Eingabe		FALSCH		WAHR		WAHR		WAHR
+	Info
+	Formel		ClearManual		SetManual		ClearManual		SetManual
+	Sichtbar
+
+
+
+BK_SONDERLSCHALTK	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_SONDERLSCHALTS	BK_DLT_BAUREIHE	=	Combima|Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Systems|Concept|N
+	GM_VERERBUNGUEBERSCH	=	Ja
+
+	Bereich
+	Wert				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+Grundmaschine
+
+GM_KONFIGURATORTYP	GM_KONFIGURATORBEREI	=	Einlaufbereich	=	Finishbereich	=	Formatbereich	=	Nachbearbeitung	=	Nutbereich	=	Sonstiges	=	Steuerungstechnik	=	Verleimbereich		ELSE
+
+	Bereich		+Automatisch|Doppelseitig|Manuell		+Flachziehen|Profilziehen|Schwabbeln		+Aggregate|Kompakt|Ständer		+Fräsen|Kappen|Kopieren		+Nutaggregat		+Durchlaufbohren|Mittenschnitt|Postforming|Schleifen|Servobearbeitung|Sprühmittelsystem				+Combima/N|GeradeHL|Leiste|Profilandruckrollenzone|Softform|Sonstige|Vorschmelzer|VTG
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		FALSCH		FALSCH		FALSCH		FALSCH		FALSCH		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual		ClearManual		ClearManual		ClearManual		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_BEARBEITUNGSSEITE	BK_DLT_BEARBEITSEITE	=	Einseitig	=	Doppelseitig	=	1½-seitig
+
+	Bereich
+	Wert		Einseitig		Doppelseitig		1½-seitig
+	Relevant
+	Multiselekt
+	Keine Eingabe
+	Info
+	Formel
+	Sichtbar
+
+
+
+Grundausstattung
+
+GM_AUSSTAND	BK_DLT_BAUREIHE	=	Combima	=	Combima		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_BEARBEITART			=	Quer
+	BK_DLT_KANTENMATERIA	=	R3	=	R3
+	BK_DLT_LINEAREINSCHU	=	Nein	=	Ja
+
+	Bereich
+	Wert		38mm		38mm
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_BETRIEBSANLEITUNG	BK_DLT_BAUREIHE	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	#BEZUG!
+
+	Bereich
+	Wert		Ja
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH
+	Info
+	Formel		ClearManual
+	Sichtbar
+
+
+
+GM_UNTERFLURABSAUGUN	BK_DLT_BAUREIHE	=	FBA		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+GM_GRUNDMASCHINERWEI	BK_DLT_BAUREIHE	=	Combima		ELSE
+	BK_DLT_MASCHINENTYP	=	1+1
+
+	Bereich
+	Wert				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+GM_WERKSTUECKFUEHRUN	BK_DLT_BAUREIHE	=	Combima		ELSE
+	BK_DLT_MASCHINENTYP	=	1+1
+
+	Bereich
+	Wert				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+GM_PRAEZISIONROLLKET	BK_DLT_BAUREIHE	=	Combima		ELSE
+	BK_DLT_MASCHINENTYP	=	X1
+
+	Bereich
+	Wert				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+Feste Maschinenseite
+
+GM_ANSCHLAGSEITE	BK_DLT_BAUREIHE	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Links		Links
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		FALSCH		FALSCH
+	Info
+	Formel		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_FESTWERKSTAUST	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+	BK_DLT_LINEAREINSCHU	=	Nein
+
+	Bereich
+	Wert		Ja		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_VERSTWERKSTAUS	BK_DLT_BAUREIHE	=	Combima	=	Novimat				ELSE
+	BK_DLT_MASCHINENTYP	=	N	=	Concept
+	GM_FESTWERKSTAUST					=	Ja
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_AGGTRAEGVERST	BK_DLT_BAUREIHE	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	N	=	Concept
+
+	Bereich
+	Wert		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_AGGTRAEGVERTYP	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+	GM_AGGTRAEGVERST	=	Ja	=	Ja
+
+	Bereich		+Manuell|NC Achse		-N/A
+	Wert						N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_ERWEITWARTZUG	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Ja		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_ERWEITWARTTYP	BK_DLT_BAUREIHE	=	Combima	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_BEARBEITART	=	Längs	=	Quer
+	BK_DLT_KANTENMATERIA	=	R3	=	R3
+	BK_DLT_LINEAREINSCHU	=	Nein
+	GM_ERWEITWARTZUG	=	Ja	=	Ja	=	Ja
+
+	Bereich		-N/A				-N/A
+	Wert		Nur Querführung		Nur Querführung				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual		SetInvalid(false)		ClearManual
+	Sichtbar
+
+
+
+Höhenverstellung
+
+GM_ELEKHOEHENVERS	BK_DLT_BAUREIHE	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_BEARBEITART	=	Längs
+	BK_DLT_LINEAREINSCHU	=	Nein
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Ja		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_SONDERHOEHENVERS	BK_DLT_BAUREIHE	=	Combima	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+	GM_ELEKHOEHENVERS					=	Ja
+	BK_WERKSTLAENGEMIN					>	1750
+
+	Bereich
+	Wert		Nein		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_ZENTRALSCHMIERUNG	GM_ELEKHOEHENVERS	=	Ja		ELSE
+
+	Bereich
+	Wert				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+Oberdruckriemen
+
+GM_ZUSVERBKEILRIEMEN	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_ZUSVERBKEILRIE32	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_RIEMENPOSITION	GM_ZUSVERBKEILRIE32	=	Ja		ELSE
+
+	Bereich		-N/A
+	Wert				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+GM_GUMMIROLLEN	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+Zuordnung zu Grundmaschinen für doppelseitige Maschinen
+
+GM_TRIEBSTOCKANTRIEB	BK_DLT_BAUREIHE	=	Combima	=	Combima						ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig			=	Einseitig	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+	GM_ZUSVERBKEILRIEMEN					=	Ja	=	Ja
+	BK_DLT_MASCHINLAEINT					>=	2000	>=	1280
+	GM_VORSCHUB							=	v=10-60m/min.|v=10-70m/min.|v=10-80m/min.
+
+	Bereich
+	Wert		Nein		Nein						Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual						ClearManual
+	Sichtbar
+
+
+
+GM_UEBERWACHLAGER	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_LEERTRUMUNTERST	BK_DLT_BAUREIHE	=	Combima								ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig	=	Doppelseitig		Doppelseitig
+	BK_DLT_KETTE			=	R75	=	R75		R75
+	BK_DLT_KANTENMATERIA	=	R3
+	GM_MITTENUNTERSTUETZ			=	Nein	=	Ja
+	GM_MITTENUNTERSTYP					=	Nicht absenkbar
+	BK_WERKSTBREITEMIN							>=	300
+
+	Bereich
+	Wert		Nein								Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual								ClearManual
+	Sichtbar
+
+
+
+GM_ABSAUGKETTE	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_KETTE			=	R75
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_ABSAUGOBERDRUCK	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_KETTENREINIGUNG	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_AGGTRAEGVERST_2	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_AGGTRAEGVERTYP_2	BK_DLT_BEARBEITSEITE	=	Doppelseitig		ELSE
+	GM_AGGTRAEGVERST_2	=	Ja
+
+	Bereich		-N/A
+	Wert				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+Vorschubgeschwindigkeiten
+
+GM_VORSCHUB	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Combima		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept	=	N
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_BEARBEITART	=	Längs	=	Quer
+	BK_DLT_KANTENMATERIA	=	R3	=	R3
+
+	Bereich		+v=10-50m/min.|v=10-60m/min.
+	Wert		v=10-50m/min.		v=10-50m/min.		v=7-35m/min.
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_VORSCHUBSONDER	GM_VORSCHUB	=	Sondergeschwindigkeit		ELSE
+
+	Bereich
+	Wert				0
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel		SetInvalid(false)		ClearManual
+	Sichtbar
+
+
+
+Arbeitsbreiten für doppelseitige und 1½-seitige Maschinen
+
+GM_ARBEITSBREITEN	BK_DLT_BEARBEITSEITE	=	Doppelseitig		ELSE
+
+	Bereich		-N/A
+	Wert				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel
+	Sichtbar				ClearManual
+
+
+
+GM_ERWEITERQUERFUEHR	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FASCALH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_ERWEITERUNGSTYP	GM_ERWEITERQUERFUEHR	=	Ja		ELSE
+
+	Bereich		-N/A
+	Wert				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+Breitenverstellung
+
+GM_BREITVERSTELLTYP	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich								-N/A
+	Wert		Programmgesteuert (ca. 4 m/min.)		N/A		N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+Werkstückunterstützung
+
+GM_ROLLSTUETZSCHIE	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Ja		Ja
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		FALSCH		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_ROLLENSTUETZTYP	BK_DLT_BAUREIHE	=	Novimat	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N
+	GM_ROLLSTUETZSCHIE	=	Ja	=	Ja	=	Ja
+
+	Bereich				-N/A		-N/A
+	Wert		Standard		Standard				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_ROLLSTUETZZUSATZ	BK_DLT_BAUREIHE	=	Combima	=	Novimat	=	Combima|Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual
+	Sichtbar
+
+
+
+Sonstiges
+
+GM_KIPPHEBEL45	BK_DLT_BAUREIHE	=	Combima	=	Novimat	=	Novimat				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KETTE			=	R75	=	G80
+	BK_DLT_KANTENMATERIA	=	R3			=	L20
+	BK_WERKSTLAENGEMIN			>=	100	>=	100	>=	100
+
+	Bereich
+	Wert		Nein		Ja		Ja				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_KETTENBAHN	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig					=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_MITTENUNTERSTUETZ	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_MITTENUNTERSTYP	GM_MITTENUNTERSTUETZ	=	Ja		ELSE
+
+	Bereich		-N/A
+	Wert				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel		SetInvalid(false)		ClearManual
+	Sichtbar
+
+
+
+GM_ERWEITSCHALTSCHRA	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_PNEUMATIKKENNZEIC	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar

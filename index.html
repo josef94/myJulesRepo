@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dynamic Form</title>
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/react-beautiful-dnd@13.1.0/dist/react-beautiful-dnd.min.js"></script>
+  <style>
+    body { font-family: sans-serif; }
+    .group { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+    .field { margin-bottom: 5px; }
+    label { display: inline-block; width: 200px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const merkmalsdefinitionData = `Name	Benennung	Datentyp	Merkmalswerte		Einheit
+
+Vererbt
+
+BK_PROJEKTNR	Projekt Nummer	Integer
+
+BK_NETZSPANNUNGSTYP	Netzspannungs Typ	String	3/400V 50/60Hz
+			3/200V/220V 50/60Hz (Japan)
+			3/600Y/347V 60Hz (Kanada) CSA-Verdrahtung
+			3/220V 60Hz (USA) UL-Verdrahtung
+			3/480Y/277V 60Hz (USA) UL-Verdrahtung
+					mm
+BK_WERKSTLAENGEMIN	Werkstücklänge Minimum	Real
+					mm
+BK_WERKSTLAENGEMAX	Werkstücklänge Maximum	Real
+
+BK_WERKSTBREITEMIN	Werkstückbreite Minimum	Real			mm
+
+BK_WERKSTBREITEMAX	Werkstückbreite Maximum	Real			mm
+
+BK_WERKSTHOEHEMIN	Werkstückhöhe Minimum	Real			mm
+
+BK_WERKSTHOEHEMAX	Werkstückhöhe Maximum	Real			mm
+
+BK_WERKSTTOLERMIN	Werkstücktoleranz Minus	Real			mm
+
+BK_WERKSTTOLERPLU	Werkstücktoleranz Plus	Real			mm
+
+BK_SONDERLACK	Sonderlack	String	Ja
+			Nein
+
+BK_SONDERLACKTYP	Sonderlack Typ	String	Zierstreifen in den Haubenklappen
+			Hauben inkl. Zierstreifen
+			Freizugängliche Schutzeinrichtungen (nicht unter Hauben)
+			Rote Schutzeinrichtungen
+			Grundmaschinenbestandteile und Aggregate (Ohne Schaltkästen)
+			N/A
+
+BK_SONDERLSCHALTK	Sonderlack Schaltkästen	String	Ja
+			Nein
+
+BK_SONDERLSCHALTS	Sonderlack Schaltschrank	String	Ja
+			Nein
+
+Nur verfügbar bei:
+Novimat Concept / Combima N / Combima Concept und Systems Maschinen
+
+BK_SONDERLSICHERHEIT	Sonderlack Sicherheitseinrichtungen	String	Ja
+			Nein
+
+BK_DLT_BAUREIHE	Baureihe	String	Combima
+			FBA
+			Novimat
+
+BK_DLT_MASCHINENTYP	Maschinentyp	String	Systems
+			Concept
+			Contour
+			Compact
+			N
+			X1
+			1+1
+			N/A
+
+BK_DLT_BEARBEITSEITE	Bearbeitungsseite	String	Einseitig
+			Doppelseitig
+			1½-seitig
+
+BK_DLT_KETTE	Kette	String	R75
+			G80
+
+BK_DLT_BEARBEITART	Bearbeitungs Art	String	Längs
+			Quer
+			N/A
+
+BK_DLT_LINEAREINSCHU	Linear Einschub	String	Ja
+			Nein
+					cm
+BK_DLT_MASCHINLAENGE	Maschinen Typ Länge	String	170		cm
+			230		cm
+			280		cm
+			330		cm
+			390		cm
+			440		cm
+			500		cm
+			540		cm
+			590		cm
+			640		cm
+			700		cm
+			740		cm
+			790		cm
+			840		cm
+			900		cm
+			950		cm
+			1000		cm
+			1060		cm
+			1110		cm
+			1170		cm
+			1220		cm
+			1280		cm
+			1310		cm
+			1370		cm
+			1420		cm
+			1480		cm
+			1530		cm
+			1580		cm
+			1640		cm
+			1690		cm
+			1730		cm
+			1780		cm
+			1840		cm
+			1890		cm
+			1950		cm
+			2000		cm
+			2050		cm
+			2090		cm
+			2150		cm
+			2200		cm
+			2250		cm
+			2310		cm
+			2360		cm
+			2420		cm
+			2470
+
+BK_DLT_MASCHINLAEINT	Maschinentyp Länge Int	Integer		Ohne GUI
+
+BK_DLT_KANTENMATERIA	Kantenmaterial	String	R3
+			L20
+			N/A
+
+BK_DLT_LINEAREINSCHU	Linear Einschub	String	Ja
+			Nein
+
+BK_DLT_NOCKENABSTAND	Nockenabstand	String	270mm	Standard
+			360mm
+			540mm
+			1080mm
+			N/A
+
+BK_DLT_ZUSMITNNOCKEN	Zusätzliche Mitnehmer Nocken	String	Ja
+			Nein
+
+BK_DLT_GRUNDMASCHERW	Grundmaschinenerweiterung	String	Ja
+			Nein
+
+BK_DLT_WERKSTFUEHRUN	Werkstückführung	String	Ja
+			Nein
+
+
+
+DLT_GRUNDMASCHINE_MG	Grundmaschine
+
+GM_KONFIGURATORBEREI	Konfigurator Bereich	String	Einlaufbereich
+			Finishbereich
+			Formatbereich
+			Nachbearbeitung
+			Nutbereich
+			Sonstiges
+			Steuerungstechnik
+			Verleimbereich
+
+GM_KONFIGURATORTYP	Konfigurator Typ	String	Automatisch
+			Doppelseitig
+			Manuell
+			Flachziehen
+			Profilziehen
+			Schwabbeln
+			Aggregate
+			Kompakt
+			Ständer
+			Fräsen
+			Kappen
+			Kopieren
+			Nutaggregat
+			Durchlaufbohren
+			Mittenschnitt
+			Postforming
+			Schleifen
+			Servobearbeitung
+			Sprühmittelsystem
+			Combima/N
+			GeradeHL
+			Leiste
+			Profilandruckrollenzone
+			Softform
+			Sonstige
+			Vorschmelzer
+			VTG
+
+GM_KONFIGURATORID	Konfigurator ID	String	0	Ohne GUI
+			00000XXXXX
+
+GM_VERERBUNGUEBERSCH	Vererbung überschreiben	String	Ja
+			Nein
+
+GM_BEARBEITUNGSSEITE	Bearbeitungsseite	String	Einseitig	Ohne GUI
+			Doppelseitig
+			1½-seitig
+
+GM_MASCHINTYPLAENGE	Maschinentyp Länge	Integer		Ohne GUI
+
+GM_UNTERFLURABSAUGUN	Unterflurabsaugung	String	Ja
+			Nein
+
+GM_GRUNDMASCHINERWEI	Grundmaschinenerweiterung	String	Ja
+			Nein
+
+GM_WERKSTUECKFUEHRUN	Werkstückführung	String	Ja
+			Nein
+
+GM_PRAEZISIONROLLKET	Präzisionsrollentransportkette	String	Ja
+			Nein
+
+
+
+DLT_GRUNDAUSSTATT_MG	Grundausstattung
+
+GM_BETRIEBSANLEITUNG	Betriebsanleitung	String	Ja
+			Nein
+
+GM_UNTERBAU	Unterbau	String	1090mm
+			1135mm
+
+GM_AUSSTAND	Ausstand	String	30mm
+			38mm
+
+
+
+
+
+
+DLT_FESTMASCHSEIT_MG	Feste Maschinenseite
+
+GM_ANSCHLAGSEITE	Anschlagseite	String	Links
+			Rechts
+
+GM_FESTWERKSTAUST	Fester Werkstückausstand	String	Ja
+			Nein
+
+GM_VERSTWERKSTAUS	Verstellung Werkstückausstand	String	Ja
+			Nein
+
+GM_AGGTRAEGVERST	Aggregateträger Verstellung	String	Ja
+			Nein
+
+GM_AGGTRAEGVERTYP	Aggregateträger Verstellung Typ	String	Manuell
+			NC Achse
+			Programmgesteuert
+			N/A
+
+Nur verfügbar wenn Aggregateträger Verstellung = Ja
+
+GM_WARTUNGSZUGANG	Wartungszugang	String	Ja
+			Nein
+
+GM_ERWEITWARTZUG	Erweiterung für Wartungszugang	String	Ja
+			Nein
+
+GM_ERWEITWARTTYP	Erweiterung für Wartungszugang Typ	String	Nur Querführung
+			Querführung und Unterbauten
+			N/A
+
+Nur verfügbar wenn Erweiterung für Wartungszugang = Ja
+
+
+
+DLT_HOEHEVERSTELL_MG	Höhenverstellung
+
+GM_ELEKHOEHENVERS	Elektronische Höhenverstellung	String	Ja
+			Nein
+
+GM_SONDERHOEHENVERS	Sonderhöhenverstellung	String	Ja
+			Nein
+
+Nur verfügbar bei:
+Elektronische Höhenverstellung = Ja
+Werkstücklänge > 1750mm
+
+GM_ZENTRALSCHMIERUNG	Zentralschmierung für Höhenverstellsäulen	String	Ja
+			Nein
+Nur verfügbar wenn Elektronische Höhenverstellung = Ja
+
+
+
+DLT_OBERDRUCKRIEM_MG	Oberdruckriemen
+
+GM_ZUSVERBKEILRIEMEN	Zusätzlicher Verbundkeilriemen und rollende Kette	String	Ja
+			Nein
+
+GM_ZUSVERBKEILRIE32	Zusätzlicher Verbundkeilriemen 32mm	String	Ja
+			Nein
+
+GM_RIEMENPOSITION	Riemenposition	String	Kettenmitte
+			Kettenkante
+			N/A
+
+Nur verfügbar wenn Zusätzlicher Verbundkeilriemen 32mm ausgewählt wurde
+
+GM_GUMMIROLLEN	Gummierte Rollen Ø70mm	String	Ja
+			Nein
+
+
+DLT_VORSCHUBGESCH_MG	Vorschubgeschwindigkeiten
+
+GM_VORSCHUB	Vorschubgeschwindigkeit	String	v=5-25m/min.
+			v=6-30m/min.
+			v=7-35m/min.
+			v=8-40m/min.
+			v=10-50m/min.
+			v=10-60m/min.
+			v=10-70m/min.
+			v=10-80m/min.
+			Sondergeschwindigkeit
+
+GM_VORSCHUBSONDER	Sondergeschwindigkeit	Integer
+
+Nur verfügbar wenn Vorschubgeschwindigkeit = Sondergeschwindigkeit ausgewählt wurde
+
+GM_VORSCHVOREINSTELL	Vorschub Voreinstellung	String	20m/min.
+			20+30m/min.
+
+
+
+DLT_ZUORDMASCHDOP_MG	Zuordnung zu Grundmaschinen für doppelseitige Maschinen
+
+GM_TRIEBSTOCKANTRIEB	Triebstockantrieb	String	Ja
+			Nein
+
+Nur Verfügbar bei:
+Einseitige Maschinen mit Zusätzlicher Rollenkette und Länge >= 2000
+Doppelseitige Maschinen mit Länge >= 1280 und Vorschub >= 10-60m/min.
+
+GM_UEBERWACHLAGER	Überwachung bei Lagerschaden	String	Ja
+			Nein
+
+GM_LEERTRUMUNTERST	Leertrumunterstützung	String	Ja
+			Nein
+
+Nur verfügbar bei:
+Doppelseitiger Maschine mit Antrieb R75 ohne absenkbarer Mittenunterstützung
+Doppelseitiger Maschine mit Antrieb R75 mit Werkstückbreite >= 300mm
+
+GM_ABSAUGKETTE	Absaugeinrichtung R75 Kette	String	Ja
+			Nein
+
+Nur verfügbar bei Maschinen mit Antrieb R75
+
+GM_ABSAUGOBERDRUCK	Absaugvorrichtung Oberdruckriemen	String	Ja
+			Nein
+
+GM_KETTENREINIGUNG	Transportkettenreinigung	String	Ja
+			Nein
+
+GM_AGGTRAEGVERST_2	Aggregateträger Verstellung	String	Ja
+			Nein
+
+GM_AGGTRAEGVERTYP_2	Aggregateträger Verstellung Typ	String	Horizontal
+			Vertikal
+			Beides
+			N/A
+
+
+
+DLT_ARBEITBREITDO_MG	Arbeitsbreiten für doppelseitige und 1½-seitige Maschinen
+
+GM_ARBEITSBREITEN	Arbeitsbreite	String	1300mm
+			1800mm
+			2300mm
+			2800mm
+			3300mm
+			3800mm
+			4300mm
+			N/A
+
+Nur verfügbar bei doppelseitigen und 1½-seitigen Maschinen
+
+GM_ERWEITERQUERFUEHR	Erweiterung Querführung 500 mm	String	Ja
+			Nein
+
+Nur verfügbar bei doppelseitigen und 1½-seitigen Maschinen
+
+GM_ERWEITERUNGSTYP	Erweiterungs Typ	String	Querführungen
+			Querführungen und Unterbauten
+			N/A
+
+Nur verfügbar bei doppelseitigen und 1½-seitigen Maschinen
+
+
+
+DLT_BREITVERSTELL_MG	Breitenverstellung
+
+GM_BREITVERSTELLTYP	Breitenverstellungs Typ	String	Programmgesteuert (ca. 4 m/min.)
+			Schnell (ca. 12 m/min.)
+			N/A
+
+
+
+DLT_WERKSTUNTERST_MG	Werkstückunterstützung
+
+GM_ROLLSTUETZSCHIE	Rollenstützschiene	String	Ja
+			Nein
+
+GM_ROLLENSTUETZTYP	Rollenstützschienen Typ	String	Standard
+			Contirollen
+			N/A
+
+Nur verfügbar, wenn Rollenstützschiene = Ja
+
+GM_ROLLSTUETZZUSATZ	Zusätzliche Rollenstützschiene	String	Ja
+			Nein
+
+Nur verfügbar bei Maschinentyp = Combima oder Novimat
+
+
+
+DLT_SONSTIGES_MG	Sonstiges
+
+GM_KIPPHEBEL45	Kipphebel mit Abstand 45 mm	String	Ja
+			Nein
+
+Nur verfügbar bei Werkstücklänge >= 100mm
+
+GM_KETTENBAHN	Kettenbahn mit Reinigungsdurchbruch	String	Ja
+			Nein
+
+Nur verfügbar bei Doppelseitigen Maschinen
+
+GM_MITTENUNTERSTUETZ	Mittenunterstützung	String	Ja
+			Nein
+
+GM_MITTENUNTERSTYP	Mittenunterstützung Typ	String	Nicht absenkbar
+			Werkstückmagazinbereich pneumatisch absenkbar
+			Magazinbereich pneumatisch absenkbar
+			N/A
+
+GM_ERWEITSCHALTSCHRA	Schaltschrank Erweiterung	String	Ja
+			Nein
+
+GM_PNEUMATIKKENNZEIC	Pneumatik Kennzeichnung	String	Ja
+			Nein`;
+
+    const erfassungsregelnData = `Name	Merkmal		Regel 1		Regel 2		Regel 3		Regel 4		Regel 5		Regel 6		Regel 7		Regel 8		Regel 9		Regel 10		Regel 11		Regel 12		Regel 13
+Vererbung
+Ist das Merkmal das über die regeln definiert/beschränkt ist	Bezieht sich immer auf Merkmal aus A Horizontal sind es Oder regeln Vertikal und verknüpft z.b. mehrer Merkmale
+BK_NETZSPANNUNGSTYP	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTLAENGEMIN	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTLAENGEMAX	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTBREITEMIN	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTBREITEMAX	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTHOEHEMIN	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTHOEHEMAX	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTTOLERMIN	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_WERKSTTOLERPLU	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_SONDERLACK	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_SONDERLACKTYP	GM_VERERBUNGUEBERSCH	=	Ja		Nein		Ja		Nein		ELSE
+	BK_SONDERLACK	=	Ja		Ja		Nein		Nein
+
+
+	Bereich		-N/A		-N/A		+N/A		+N/A
+	Wert						N/A		N/A
+	Relevant
+	Multiselekt		WAHR		WAHR		FALSCH		FALSCH
+	Keine Eingabe		FALSCH		WAHR		WAHR		WAHR
+	Info
+	Formel		ClearManual		SetManual		ClearManual		SetManual
+	Sichtbar
+
+
+
+BK_SONDERLSCHALTK	GM_VERERBUNGUEBERSCH	=	Ja		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+BK_SONDERLSCHALTS	BK_DLT_BAUREIHE	=	Combima|Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Systems|Concept|N
+	GM_VERERBUNGUEBERSCH	=	Ja
+
+	Bereich
+	Wert				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				SetManual
+	Sichtbar
+
+
+
+Grundmaschine
+
+GM_KONFIGURATORTYP	GM_KONFIGURATORBEREI	=	Einlaufbereich	=	Finishbereich	=	Formatbereich	=	Nachbearbeitung	=	Nutbereich	=	Sonstiges	=	Steuerungstechnik	=	Verleimbereich		ELSE
+
+	Bereich		+Automatisch|Doppelseitig|Manuell		+Flachziehen|Profilziehen|Schwabbeln		+Aggregate|Kompakt|Ständer		+Fräsen|Kappen|Kopieren		+Nutaggregat		+Durchlaufbohren|Mittenschnitt|Postforming|Schleifen|Servobearbeitung|Sprühmittelsystem				+Combima/N|GeradeHL|Leiste|Profilandruckrollenzone|Softform|Sonstige|Vorschmelzer|VTG
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		FALSCH		FALSCH		FALSCH		FALSCH		FALSCH		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual		ClearManual		ClearManual		ClearManual		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_BEARBEITUNGSSEITE	BK_DLT_BEARBEITSEITE	=	Einseitig	=	Doppelseitig	=	1½-seitig
+
+	Bereich
+	Wert		Einseitig		Doppelseitig		1½-seitig
+	Relevant
+	Multiselekt
+	Keine Eingabe
+	Info
+	Formel
+	Sichtbar
+
+
+
+Grundausstattung
+
+GM_AUSSTAND	BK_DLT_BAUREIHE	=	Combima	=	Combima		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_BEARBEITART			=	Quer
+	BK_DLT_KANTENMATERIA	=	R3	=	R3
+	BK_DLT_LINEAREINSCHU	=	Nein	=	Ja
+
+	Bereich
+	Wert		38mm		38mm
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_BETRIEBSANLEITUNG	BK_DLT_BAUREIHE	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	#BEZUG!
+
+	Bereich
+	Wert		Ja
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH
+	Info
+	Formel		ClearManual
+	Sichtbar
+
+
+
+GM_UNTERFLURABSAUGUN	BK_DLT_BAUREIHE	=	FBA		ELSE
+
+	Bereich
+	Wert
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+GM_GRUNDMASCHINERWEI	BK_DLT_BAUREIHE	=	Combima		ELSE
+	BK_DLT_MASCHINENTYP	=	1+1
+
+	Bereich
+	Wert				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+GM_WERKSTUECKFUEHRUN	BK_DLT_BAUREIHE	=	Combima		ELSE
+	BK_DLT_MASCHINENTYP	=	1+1
+
+	Bereich
+	Wert				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+GM_PRAEZISIONROLLKET	BK_DLT_BAUREIHE	=	Combima		ELSE
+	BK_DLT_MASCHINENTYP	=	X1
+
+	Bereich
+	Wert				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+Feste Maschinenseite
+
+GM_ANSCHLAGSEITE	BK_DLT_BAUREIHE	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Links		Links
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		FALSCH		FALSCH
+	Info
+	Formel		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_FESTWERKSTAUST	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+	BK_DLT_LINEAREINSCHU	=	Nein
+
+	Bereich
+	Wert		Ja		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_VERSTWERKSTAUS	BK_DLT_BAUREIHE	=	Combima	=	Novimat				ELSE
+	BK_DLT_MASCHINENTYP	=	N	=	Concept
+	GM_FESTWERKSTAUST					=	Ja
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_AGGTRAEGVERST	BK_DLT_BAUREIHE	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	N	=	Concept
+
+	Bereich
+	Wert		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_AGGTRAEGVERTYP	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+	GM_AGGTRAEGVERST	=	Ja	=	Ja
+
+	Bereich		+Manuell|NC Achse		-N/A
+	Wert						N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_ERWEITWARTZUG	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Ja		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_ERWEITWARTTYP	BK_DLT_BAUREIHE	=	Combima	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_BEARBEITART	=	Längs	=	Quer
+	BK_DLT_KANTENMATERIA	=	R3	=	R3
+	BK_DLT_LINEAREINSCHU	=	Nein
+	GM_ERWEITWARTZUG	=	Ja	=	Ja	=	Ja
+
+	Bereich		-N/A				-N/A
+	Wert		Nur Querführung		Nur Querführung				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual		SetInvalid(false)		ClearManual
+	Sichtbar
+
+
+
+Höhenverstellung
+
+GM_ELEKHOEHENVERS	BK_DLT_BAUREIHE	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_BEARBEITART	=	Längs
+	BK_DLT_LINEAREINSCHU	=	Nein
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Ja		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_SONDERHOEHENVERS	BK_DLT_BAUREIHE	=	Combima	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+	GM_ELEKHOEHENVERS					=	Ja
+	BK_WERKSTLAENGEMIN					>	1750
+
+	Bereich
+	Wert		Nein		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_ZENTRALSCHMIERUNG	GM_ELEKHOEHENVERS	=	Ja		ELSE
+
+	Bereich
+	Wert				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+Oberdruckriemen
+
+GM_ZUSVERBKEILRIEMEN	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_ZUSVERBKEILRIE32	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_RIEMENPOSITION	GM_ZUSVERBKEILRIE32	=	Ja		ELSE
+
+	Bereich		-N/A
+	Wert				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+GM_GUMMIROLLEN	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+Zuordnung zu Grundmaschinen für doppelseitige Maschinen
+
+GM_TRIEBSTOCKANTRIEB	BK_DLT_BAUREIHE	=	Combima	=	Combima						ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig			=	Einseitig	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+	GM_ZUSVERBKEILRIEMEN					=	Ja	=	Ja
+	BK_DLT_MASCHINLAEINT					>=	2000	>=	1280
+	GM_VORSCHUB							=	v=10-60m/min.|v=10-70m/min.|v=10-80m/min.
+
+	Bereich
+	Wert		Nein		Nein						Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual						ClearManual
+	Sichtbar
+
+
+
+GM_UEBERWACHLAGER	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_LEERTRUMUNTERST	BK_DLT_BAUREIHE	=	Combima								ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig	=	Doppelseitig		Doppelseitig
+	BK_DLT_KETTE			=	R75	=	R75		R75
+	BK_DLT_KANTENMATERIA	=	R3
+	GM_MITTENUNTERSTUETZ			=	Nein	=	Ja
+	GM_MITTENUNTERSTYP					=	Nicht absenkbar
+	BK_WERKSTBREITEMIN							>=	300
+
+	Bereich
+	Wert		Nein								Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual								ClearManual
+	Sichtbar
+
+
+
+GM_ABSAUGKETTE	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_KETTE			=	R75
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_ABSAUGOBERDRUCK	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_KETTENREINIGUNG	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_AGGTRAEGVERST_2	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_AGGTRAEGVERTYP_2	BK_DLT_BEARBEITSEITE	=	Doppelseitig		ELSE
+	GM_AGGTRAEGVERST_2	=	Ja
+
+	Bereich		-N/A
+	Wert				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+Vorschubgeschwindigkeiten
+
+GM_VORSCHUB	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Combima		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept	=	N
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_BEARBEITART	=	Längs	=	Quer
+	BK_DLT_KANTENMATERIA	=	R3	=	R3
+
+	Bereich		+v=10-50m/min.|v=10-60m/min.
+	Wert		v=10-50m/min.		v=10-50m/min.		v=7-35m/min.
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_VORSCHUBSONDER	GM_VORSCHUB	=	Sondergeschwindigkeit		ELSE
+
+	Bereich
+	Wert				0
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel		SetInvalid(false)		ClearManual
+	Sichtbar
+
+
+
+Arbeitsbreiten für doppelseitige und 1½-seitige Maschinen
+
+GM_ARBEITSBREITEN	BK_DLT_BEARBEITSEITE	=	Doppelseitig		ELSE
+
+	Bereich		-N/A
+	Wert				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel
+	Sichtbar				ClearManual
+
+
+
+GM_ERWEITERQUERFUEHR	BK_DLT_BAUREIHE	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FASCALH		WAHR
+	Info
+	Formel		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_ERWEITERUNGSTYP	GM_ERWEITERQUERFUEHR	=	Ja		ELSE
+
+	Bereich		-N/A
+	Wert				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel				ClearManual
+	Sichtbar
+
+
+
+Breitenverstellung
+
+GM_BREITVERSTELLTYP	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich								-N/A
+	Wert		Programmgesteuert (ca. 4 m/min.)		N/A		N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+Werkstückunterstützung
+
+GM_ROLLSTUETZSCHIE	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Ja		Ja
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		FALSCH		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_ROLLENSTUETZTYP	BK_DLT_BAUREIHE	=	Novimat	=	Combima				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N
+	GM_ROLLSTUETZSCHIE	=	Ja	=	Ja	=	Ja
+
+	Bereich				-N/A		-N/A
+	Wert		Standard		Standard				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_ROLLSTUETZZUSATZ	BK_DLT_BAUREIHE	=	Combima	=	Novimat	=	Combima|Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual
+	Sichtbar
+
+
+
+Sonstiges
+
+GM_KIPPHEBEL45	BK_DLT_BAUREIHE	=	Combima	=	Novimat	=	Novimat				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	Concept	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KETTE			=	R75	=	G80
+	BK_DLT_KANTENMATERIA	=	R3			=	L20
+	BK_WERKSTLAENGEMIN			>=	100	>=	100	>=	100
+
+	Bereich
+	Wert		Nein		Ja		Ja				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		FALSCH		FALSCH		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_KETTENBAHN	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat				ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig					=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein				Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH		WAHR
+	Info
+	Formel		ClearManual		ClearManual		ClearManual				ClearManual
+	Sichtbar
+
+
+
+GM_MITTENUNTERSTUETZ	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_MITTENUNTERSTYP	GM_MITTENUNTERSTUETZ	=	Ja		ELSE
+
+	Bereich		-N/A
+	Wert				N/A
+	Relevant
+	Multiselekt
+	Keine Eingabe		FALSCH		WAHR
+	Info
+	Formel		SetInvalid(false)		ClearManual
+	Sichtbar
+
+
+
+GM_ERWEITSCHALTSCHRA	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar
+
+
+
+GM_PNEUMATIKKENNZEIC	BK_DLT_BAUREIHE	=	Combima	=	Combima	=	Novimat		ELSE
+	BK_DLT_MASCHINENTYP	=	Concept	=	N	=	Concept
+	BK_DLT_BEARBEITSEITE	=	Doppelseitig
+	BK_DLT_KANTENMATERIA	=	R3
+
+	Bereich
+	Wert		Nein		Nein		Nein
+	Relevant
+	Multiselekt
+	Keine Eingabe		WAHR		WAHR		WAHR		FALSCH
+	Info
+	Formel		ClearManual		ClearManual		ClearManual
+	Sichtbar`;
+
+    function App() {
+      const [fields, setFields] = React.useState([]);
+      const [formState, setFormState] = React.useState({});
+
+      React.useEffect(() => {
+        // Parse the data and initialize the form
+        const parsedFields = parseMerkmalsdefinition(merkmalsdefinitionData);
+        const parsedRules = parseErfassungsregeln(erfassungsregelnData);
+        setFields(parsedFields);
+        // you can implement the rest of the logic here
+      }, []);
+
+      const parseMerkmalsdefinition = (data) => {
+        const rows = data.split('\\n').map(row => row.split('\\t'));
+        const fields = [];
+        let currentGroup = null;
+
+        for (const row of rows) {
+          if (row.length > 0 && row[0]) {
+            if (row[0].startsWith('DLT_') && row[0].endsWith('_MG')) {
+              currentGroup = { name: row[1], fields: [] };
+              fields.push(currentGroup);
+            } else if (currentGroup) {
+              const newField = {
+                name: row[0],
+                label: row[1],
+                type: row[2],
+                values: row[3] ? row[3].split('|') : [],
+              };
+              if(newField.name !== 'Name') {
+                currentGroup.fields.push(newField);
+              }
+            }
+          }
+        }
+        return fields;
+      };
+
+      const parseErfassungsregeln = (data) => {
+        const lines = data.split('\\n');
+        const rules = [];
+        let currentRule = null;
+        let ruleLines = [];
+
+        for (const line of lines) {
+            const row = line.split('\\t');
+            if (row.length > 1 && row[0] && !row[0].startsWith(' ') && row[0] !== 'Name' && row[0] !== 'Vererbung' && !row[0].startsWith('Ist das Merkmal')) {
+                if (currentRule) {
+                    parseRuleBlock(currentRule, ruleLines);
+                }
+                currentRule = { target: row[0], rules: [] };
+                rules.push(currentRule);
+                ruleLines = [row];
+            } else if (currentRule) {
+                ruleLines.push(row);
+            }
+        }
+        if (currentRule) {
+            parseRuleBlock(currentRule, ruleLines);
+        }
+
+        return rules;
+      };
+
+      const parseRuleBlock = (rule, lines) => {
+        const header = lines[0];
+        const conditionLines = [];
+        const actionLines = {};
+
+        let isActionSection = false;
+        for (let i = 1; i < lines.length; i++) {
+            const row = lines[i];
+            if (row.length > 1 && row[1] && row[1].trim() === 'Bereich') {
+                isActionSection = true;
+            }
+
+            if (isActionSection) {
+                const actionName = row[1] ? row[1].trim() : '';
+                if(actionName) actionLines[actionName] = row.slice(2);
+            } else {
+                if(row.length > 1 && row[1] && row[1].trim()) {
+                    conditionLines.push(row);
+                }
+            }
+        }
+
+        const numRules = header.filter(x => x.startsWith("Regel") || x.startsWith("ELSE")).length;
+
+        for (let i = 0; i < numRules; i++) {
+            const ruleConditions = [];
+            for (const line of conditionLines) {
+                const condition = {
+                    source: line[1].trim(),
+                    operator: line[2+i*2],
+                    value: line[3+i*2]
+                };
+                if(condition.operator && condition.value) {
+                    ruleConditions.push(condition);
+                }
+            }
+
+            const ruleActions = {};
+            for(const actionName in actionLines) {
+                if(actionLines[actionName][i]) {
+                    ruleActions[actionName] = actionLines[actionName][i];
+                }
+            }
+
+            if(ruleConditions.length > 0 || Object.keys(ruleActions).length > 0) {
+                 rule.rules.push({
+                    conditions: ruleConditions,
+                    actions: ruleActions
+                });
+            }
+        }
+      };
+
+
+      const handleInputChange = (fieldName, value) => {
+        const newFormState = { ...formState, [fieldName]: value };
+        const updatedState = evaluateRules(newFormState, rules);
+        setFormState(updatedState);
+      };
+
+      const evaluateRules = (currentState, rules) => {
+        let updatedState = { ...currentState };
+
+        for (const rule of rules) {
+            for(const subRule of rule.rules) {
+                const conditionsMet = subRule.conditions.every(cond => {
+                    const sourceValue = currentState[cond.source];
+                    if (!sourceValue) return false;
+
+                    switch (cond.operator) {
+                        case '=':
+                            return cond.value.split('|').includes(sourceValue);
+                        case '>=':
+                            return parseFloat(sourceValue) >= parseFloat(cond.value);
+                        case '>':
+                            return parseFloat(sourceValue) > parseFloat(cond.value);
+                        case '<=':
+                            return parseFloat(sourceValue) <= parseFloat(cond.value);
+                        case '<':
+                            return parseFloat(sourceValue) < parseFloat(cond.value);
+                        case '!=':
+                            return !cond.value.split('|').includes(sourceValue);
+                        default:
+                            return false;
+                    }
+                });
+
+                if (conditionsMet) {
+                    const targetName = rule.target;
+                    const actions = subRule.actions;
+
+                    if(actions['Wert']) {
+                        updatedState[targetName] = actions['Wert'];
+                    }
+                    if(actions['Sichtbar']) {
+                        updatedState[targetName + '_visible'] = actions['Sichtbar'] === 'WAHR';
+                    }
+                    if(actions['Keine Eingabe']) {
+                        updatedState[targetName + '_disabled'] = actions['Keine Eingabe'] === 'WAHR';
+                    }
+                    if(actions['Bereich']) {
+                        updatedState[targetName + '_bereich'] = actions['Bereich'];
+                    }
+                }
+            }
+        }
+        return updatedState;
+      };
+
+      const [rules, setRules] = React.useState([]);
+
+      React.useEffect(() => {
+        // Parse the data and initialize the form
+        const parsedFields = parseMerkmalsdefinition(merkmalsdefinitionData);
+        const parsedRules = parseErfassungsregeln(erfassungsregelnData);
+        setFields(parsedFields);
+        setRules(parsedRules);
+
+        const initialFormState = {};
+        parsedFields.forEach(group => {
+            group.fields.forEach(field => {
+                initialFormState[field.name] = field.values.length > 0 ? field.values[0] : '';
+            });
+        });
+        setFormState(initialFormState);
+
+      }, []);
+
+      const onDragEnd = (result) => {
+        if (!result.destination) {
+          return;
+        }
+
+        const newFields = Array.from(fields);
+        const [reorderedItem] = newFields.splice(result.source.index, 1);
+        newFields.splice(result.destination.index, 0, reorderedItem);
+
+        setFields(newFields);
+      };
+
+      const addField = (groupName) => {
+        const newFields = fields.map(group => {
+            if (group.name === groupName) {
+                const newFieldName = `new_field_${Date.now()}`;
+                const newField = {
+                    name: newFieldName,
+                    label: 'New Field',
+                    type: 'String',
+                    values: []
+                };
+                return { ...group, fields: [...group.fields, newField] };
+            }
+            return group;
+        });
+        setFields(newFields);
+      }
+
+      const [showRules, setShowRules] = React.useState(false);
+
+      const [opportunityNumber, setOpportunityNumber] = React.useState('');
+      const [guid, setGuid] = React.useState('');
+
+      const newForm = () => {
+        const initialFormState = {};
+        fields.forEach(group => {
+            group.fields.forEach(field => {
+                initialFormState[field.name] = field.values.length > 0 ? field.values[0] : '';
+            });
+        });
+        setFormState(initialFormState);
+        setOpportunityNumber('');
+        setGuid(Date.now().toString(36) + Math.random().toString(36).substr(2));
+      };
+
+      const saveForm = () => {
+        const dataToSave = {
+            formState,
+            fields,
+            opportunityNumber,
+            guid
+        };
+        localStorage.setItem('dynamicFormData', JSON.stringify(dataToSave));
+        alert('Form saved!');
+      };
+
+      const loadForm = () => {
+        const savedData = localStorage.getItem('dynamicFormData');
+        if (savedData) {
+            const parsedData = JSON.parse(savedData);
+            setFormState(parsedData.formState);
+            setFields(parsedData.fields);
+            setOpportunityNumber(parsedData.opportunityNumber);
+            setGuid(parsedData.guid);
+            alert('Form loaded!');
+        } else {
+            alert('No saved data found.');
+        }
+      };
+
+      const [isLocked, setIsLocked] = React.useState(false);
+
+      React.useEffect(() => {
+        const lock = localStorage.getItem('dynamicFormLock');
+        if (lock && Date.now() - parseInt(lock, 10) < 60000) {
+            setIsLocked(true);
+        } else {
+            localStorage.setItem('dynamicFormLock', Date.now().toString());
+        }
+
+        const unloadCallback = (event) => {
+            localStorage.removeItem('dynamicFormLock');
+        };
+        window.addEventListener("beforeunload", unloadCallback);
+        return () => window.removeEventListener("beforeunload", unloadCallback);
+      }, []);
+
+      const releaseLock = () => {
+        localStorage.removeItem('dynamicFormLock');
+        setIsLocked(false);
+      }
+
+      if(isLocked) {
+        return (
+            <div>
+                <h1>Form is locked</h1>
+                <p>Another user might be editing this form.</p>
+                <button onClick={releaseLock}>Release Lock</button>
+            </div>
+        )
+      }
+
+      return (
+        <ReactBeautifulDnd.DragDropContext onDragEnd={onDragEnd}>
+          <div>
+            <h1>Dynamic Form</h1>
+            <div>
+              <button onClick={newForm}>New Form</button>
+              <button onClick={saveForm}>Save Form</button>
+              <button onClick={loadForm}>Load Form</button>
+              <button onClick={() => setShowRules(!showRules)}>
+                {showRules ? 'Hide' : 'Show'} Rules
+              </button>
+            </div>
+            <div>
+              <label>Opportunity Number:</label>
+              <input value={opportunityNumber} onChange={(e) => setOpportunityNumber(e.target.value)} />
+              <label>GUID:</label>
+              <input value={guid} disabled />
+            </div>
+            {showRules && (
+              <pre>{JSON.stringify(rules, null, 2)}</pre>
+            )}
+            <ReactBeautifulDnd.Droppable droppableId="groups">
+              {(provided) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {fields.map((group, index) => (
+                    <ReactBeautifulDnd.Draggable key={group.name} draggableId={group.name} index={index}>
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          className="group"
+                        >
+                          <h2>{group.name}</h2>
+                          <button onClick={() => addField(group.name)}>Add Field</button>
+                          {group.fields.map(field => {
+                            if (formState[field.name + '_visible'] === false) {
+                              return null;
+                            }
+
+                            const options = formState[field.name + '_bereich']
+                              ? formState[field.name + '_bereich'].split('|')
+                              : field.values;
+
+                            return (
+                              <div key={field.name} className="field">
+                                <label>{field.label}</label>
+                                {field.type === 'String' && field.values.length > 0 ? (
+                                  <select
+                                    value={formState[field.name] || ''}
+                                    onChange={(e) => handleInputChange(field.name, e.target.value)}
+                                    disabled={formState[field.name + '_disabled']}
+                                  >
+                                    {options.map(val => <option key={val} value={val}>{val}</option>)}
+                                  </select>
+                                ) : (
+                                  <input
+                                    type={field.type === 'Integer' || field.type === 'Real' ? 'number' : 'text'}
+                                    value={formState[field.name] || ''}
+                                    onChange={(e) => handleInputChange(field.name, e.target.value)}
+                                    disabled={formState[field.name + '_disabled']}
+                                  />
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </ReactBeautifulDnd.Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </ReactBeautifulDnd.Droppable>
+          </div>
+        </ReactBeautifulDnd.DragDropContext>
+      );
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>

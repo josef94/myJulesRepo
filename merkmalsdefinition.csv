@@ -1,0 +1,439 @@
+Name	Benennung	Datentyp	Merkmalswerte		Einheit
+
+Vererbt
+
+BK_PROJEKTNR	Projekt Nummer	Integer
+
+BK_NETZSPANNUNGSTYP	Netzspannungs Typ	String	3/400V 50/60Hz
+			3/200V/220V 50/60Hz (Japan)
+			3/600Y/347V 60Hz (Kanada) CSA-Verdrahtung
+			3/220V 60Hz (USA) UL-Verdrahtung
+			3/480Y/277V 60Hz (USA) UL-Verdrahtung
+					mm
+BK_WERKSTLAENGEMIN	Werkstücklänge Minimum	Real
+					mm
+BK_WERKSTLAENGEMAX	Werkstücklänge Maximum	Real
+
+BK_WERKSTBREITEMIN	Werkstückbreite Minimum	Real			mm
+
+BK_WERKSTBREITEMAX	Werkstückbreite Maximum	Real			mm
+
+BK_WERKSTHOEHEMIN	Werkstückhöhe Minimum	Real			mm
+
+BK_WERKSTHOEHEMAX	Werkstückhöhe Maximum	Real			mm
+
+BK_WERKSTTOLERMIN	Werkstücktoleranz Minus	Real			mm
+
+BK_WERKSTTOLERPLU	Werkstücktoleranz Plus	Real			mm
+
+BK_SONDERLACK	Sonderlack	String	Ja
+			Nein
+
+BK_SONDERLACKTYP	Sonderlack Typ	String	Zierstreifen in den Haubenklappen
+			Hauben inkl. Zierstreifen
+			Freizugängliche Schutzeinrichtungen (nicht unter Hauben)
+			Rote Schutzeinrichtungen
+			Grundmaschinenbestandteile und Aggregate (Ohne Schaltkästen)
+			N/A
+
+BK_SONDERLSCHALTK	Sonderlack Schaltkästen	String	Ja
+			Nein
+
+BK_SONDERLSCHALTS	Sonderlack Schaltschrank	String	Ja
+			Nein
+
+Nur verfügbar bei:
+Novimat Concept / Combima N / Combima Concept und Systems Maschinen
+
+BK_SONDERLSICHERHEIT	Sonderlack Sicherheitseinrichtungen	String	Ja
+			Nein
+
+BK_DLT_BAUREIHE	Baureihe	String	Combima
+			FBA
+			Novimat
+
+BK_DLT_MASCHINENTYP	Maschinentyp	String	Systems
+			Concept
+			Contour
+			Compact
+			N
+			X1
+			1+1
+			N/A
+
+BK_DLT_BEARBEITSEITE	Bearbeitungsseite	String	Einseitig
+			Doppelseitig
+			1½-seitig
+
+BK_DLT_KETTE	Kette	String	R75
+			G80
+
+BK_DLT_BEARBEITART	Bearbeitungs Art	String	Längs
+			Quer
+			N/A
+
+BK_DLT_LINEAREINSCHU	Linear Einschub	String	Ja
+			Nein
+					cm
+BK_DLT_MASCHINLAENGE	Maschinen Typ Länge	String	170		cm
+			230		cm
+			280		cm
+			330		cm
+			390		cm
+			440		cm
+			500		cm
+			540		cm
+			590		cm
+			640		cm
+			700		cm
+			740		cm
+			790		cm
+			840		cm
+			900		cm
+			950		cm
+			1000		cm
+			1060		cm
+			1110		cm
+			1170		cm
+			1220		cm
+			1280		cm
+			1310		cm
+			1370		cm
+			1420		cm
+			1480		cm
+			1530		cm
+			1580		cm
+			1640		cm
+			1690		cm
+			1730		cm
+			1780		cm
+			1840		cm
+			1890		cm
+			1950		cm
+			2000		cm
+			2050		cm
+			2090		cm
+			2150		cm
+			2200		cm
+			2250		cm
+			2310		cm
+			2360		cm
+			2420		cm
+			2470
+
+BK_DLT_MASCHINLAEINT	Maschinentyp Länge Int	Integer		Ohne GUI
+
+BK_DLT_KANTENMATERIA	Kantenmaterial	String	R3
+			L20
+			N/A
+
+BK_DLT_LINEAREINSCHU	Linear Einschub	String	Ja
+			Nein
+
+BK_DLT_NOCKENABSTAND	Nockenabstand	String	270mm	Standard
+			360mm
+			540mm
+			1080mm
+			N/A
+
+BK_DLT_ZUSMITNNOCKEN	Zusätzliche Mitnehmer Nocken	String	Ja
+			Nein
+
+BK_DLT_GRUNDMASCHERW	Grundmaschinenerweiterung	String	Ja
+			Nein
+
+BK_DLT_WERKSTFUEHRUN	Werkstückführung	String	Ja
+			Nein
+
+
+
+DLT_GRUNDMASCHINE_MG	Grundmaschine
+
+GM_KONFIGURATORBEREI	Konfigurator Bereich	String	Einlaufbereich
+			Finishbereich
+			Formatbereich
+			Nachbearbeitung
+			Nutbereich
+			Sonstiges
+			Steuerungstechnik
+			Verleimbereich
+
+GM_KONFIGURATORTYP	Konfigurator Typ	String	Automatisch
+			Doppelseitig
+			Manuell
+			Flachziehen
+			Profilziehen
+			Schwabbeln
+			Aggregate
+			Kompakt
+			Ständer
+			Fräsen
+			Kappen
+			Kopieren
+			Nutaggregat
+			Durchlaufbohren
+			Mittenschnitt
+			Postforming
+			Schleifen
+			Servobearbeitung
+			Sprühmittelsystem
+			Combima/N
+			GeradeHL
+			Leiste
+			Profilandruckrollenzone
+			Softform
+			Sonstige
+			Vorschmelzer
+			VTG
+
+GM_KONFIGURATORID	Konfigurator ID	String	0	Ohne GUI
+			00000XXXXX
+
+GM_VERERBUNGUEBERSCH	Vererbung überschreiben	String	Ja
+			Nein
+
+GM_BEARBEITUNGSSEITE	Bearbeitungsseite	String	Einseitig	Ohne GUI
+			Doppelseitig
+			1½-seitig
+
+GM_MASCHINTYPLAENGE	Maschinentyp Länge	Integer		Ohne GUI
+
+GM_UNTERFLURABSAUGUN	Unterflurabsaugung	String	Ja
+			Nein
+
+GM_GRUNDMASCHINERWEI	Grundmaschinenerweiterung	String	Ja
+			Nein
+
+GM_WERKSTUECKFUEHRUN	Werkstückführung	String	Ja
+			Nein
+
+GM_PRAEZISIONROLLKET	Präzisionsrollentransportkette	String	Ja
+			Nein
+
+
+
+DLT_GRUNDAUSSTATT_MG	Grundausstattung
+
+GM_BETRIEBSANLEITUNG	Betriebsanleitung	String	Ja
+			Nein
+
+GM_UNTERBAU	Unterbau	String	1090mm
+			1135mm
+
+GM_AUSSTAND	Ausstand	String	30mm
+			38mm
+
+
+
+
+
+
+DLT_FESTMASCHSEIT_MG	Feste Maschinenseite
+
+GM_ANSCHLAGSEITE	Anschlagseite	String	Links
+			Rechts
+
+GM_FESTWERKSTAUST	Fester Werkstückausstand	String	Ja
+			Nein
+
+GM_VERSTWERKSTAUS	Verstellung Werkstückausstand	String	Ja
+			Nein
+
+GM_AGGTRAEGVERST	Aggregateträger Verstellung	String	Ja
+			Nein
+
+GM_AGGTRAEGVERTYP	Aggregateträger Verstellung Typ	String	Manuell
+			NC Achse
+			Programmgesteuert
+			N/A
+
+Nur verfügbar wenn Aggregateträger Verstellung = Ja
+
+GM_WARTUNGSZUGANG	Wartungszugang	String	Ja
+			Nein
+
+GM_ERWEITWARTZUG	Erweiterung für Wartungszugang	String	Ja
+			Nein
+
+GM_ERWEITWARTTYP	Erweiterung für Wartungszugang Typ	String	Nur Querführung
+			Querführung und Unterbauten
+			N/A
+
+Nur verfügbar wenn Erweiterung für Wartungszugang = Ja
+
+
+
+DLT_HOEHEVERSTELL_MG	Höhenverstellung
+
+GM_ELEKHOEHENVERS	Elektronische Höhenverstellung	String	Ja
+			Nein
+
+GM_SONDERHOEHENVERS	Sonderhöhenverstellung	String	Ja
+			Nein
+
+Nur verfügbar bei:
+Elektronische Höhenverstellung = Ja
+Werkstücklänge > 1750mm
+
+GM_ZENTRALSCHMIERUNG	Zentralschmierung für Höhenverstellsäulen	String	Ja
+			Nein
+Nur verfügbar wenn Elektronische Höhenverstellung = Ja
+
+
+
+DLT_OBERDRUCKRIEM_MG	Oberdruckriemen
+
+GM_ZUSVERBKEILRIEMEN	Zusätzlicher Verbundkeilriemen und rollende Kette	String	Ja
+			Nein
+
+GM_ZUSVERBKEILRIE32	Zusätzlicher Verbundkeilriemen 32mm	String	Ja
+			Nein
+
+GM_RIEMENPOSITION	Riemenposition	String	Kettenmitte
+			Kettenkante
+			N/A
+
+Nur verfügbar wenn Zusätzlicher Verbundkeilriemen 32mm ausgewählt wurde
+
+GM_GUMMIROLLEN	Gummierte Rollen Ø70mm	String	Ja
+			Nein
+
+
+DLT_VORSCHUBGESCH_MG	Vorschubgeschwindigkeiten
+
+GM_VORSCHUB	Vorschubgeschwindigkeit	String	v=5-25m/min.
+			v=6-30m/min.
+			v=7-35m/min.
+			v=8-40m/min.
+			v=10-50m/min.
+			v=10-60m/min.
+			v=10-70m/min.
+			v=10-80m/min.
+			Sondergeschwindigkeit
+
+GM_VORSCHUBSONDER	Sondergeschwindigkeit	Integer
+
+Nur verfügbar wenn Vorschubgeschwindigkeit = Sondergeschwindigkeit ausgewählt wurde
+
+GM_VORSCHVOREINSTELL	Vorschub Voreinstellung	String	20m/min.
+			20+30m/min.
+
+
+
+DLT_ZUORDMASCHDOP_MG	Zuordnung zu Grundmaschinen für doppelseitige Maschinen
+
+GM_TRIEBSTOCKANTRIEB	Triebstockantrieb	String	Ja
+			Nein
+
+Nur Verfügbar bei:
+Einseitige Maschinen mit Zusätzlicher Rollenkette und Länge >= 2000
+Doppelseitige Maschinen mit Länge >= 1280 und Vorschub >= 10-60m/min.
+
+GM_UEBERWACHLAGER	Überwachung bei Lagerschaden	String	Ja
+			Nein
+
+GM_LEERTRUMUNTERST	Leertrumunterstützung	String	Ja
+			Nein
+
+Nur verfügbar bei:
+Doppelseitiger Maschine mit Antrieb R75 ohne absenkbarer Mittenunterstützung
+Doppelseitiger Maschine mit Antrieb R75 mit Werkstückbreite >= 300mm
+
+GM_ABSAUGKETTE	Absaugeinrichtung R75 Kette	String	Ja
+			Nein
+
+Nur verfügbar bei Maschinen mit Antrieb R75
+
+GM_ABSAUGOBERDRUCK	Absaugvorrichtung Oberdruckriemen	String	Ja
+			Nein
+
+GM_KETTENREINIGUNG	Transportkettenreinigung	String	Ja
+			Nein
+
+GM_AGGTRAEGVERST_2	Aggregateträger Verstellung	String	Ja
+			Nein
+
+GM_AGGTRAEGVERTYP_2	Aggregateträger Verstellung Typ	String	Horizontal
+			Vertikal
+			Beides
+			N/A
+
+
+
+DLT_ARBEITBREITDO_MG	Arbeitsbreiten für doppelseitige und 1½-seitige Maschinen
+
+GM_ARBEITSBREITEN	Arbeitsbreite	String	1300mm
+			1800mm
+			2300mm
+			2800mm
+			3300mm
+			3800mm
+			4300mm
+			N/A
+
+Nur verfügbar bei doppelseitigen und 1½-seitigen Maschinen
+
+GM_ERWEITERQUERFUEHR	Erweiterung Querführung 500 mm	String	Ja
+			Nein
+
+Nur verfügbar bei doppelseitigen und 1½-seitigen Maschinen
+
+GM_ERWEITERUNGSTYP	Erweiterungs Typ	String	Querführungen
+			Querführungen und Unterbauten
+			N/A
+
+Nur verfügbar bei doppelseitigen und 1½-seitigen Maschinen
+
+
+
+DLT_BREITVERSTELL_MG	Breitenverstellung
+
+GM_BREITVERSTELLTYP	Breitenverstellungs Typ	String	Programmgesteuert (ca. 4 m/min.)
+			Schnell (ca. 12 m/min.)
+			N/A
+
+
+
+DLT_WERKSTUNTERST_MG	Werkstückunterstützung
+
+GM_ROLLSTUETZSCHIE	Rollenstützschiene	String	Ja
+			Nein
+
+GM_ROLLENSTUETZTYP	Rollenstützschienen Typ	String	Standard
+			Contirollen
+			N/A
+
+Nur verfügbar, wenn Rollenstützschiene = Ja
+
+GM_ROLLSTUETZZUSATZ	Zusätzliche Rollenstützschiene	String	Ja
+			Nein
+
+Nur verfügbar bei Maschinentyp = Combima oder Novimat
+
+
+
+DLT_SONSTIGES_MG	Sonstiges
+
+GM_KIPPHEBEL45	Kipphebel mit Abstand 45 mm	String	Ja
+			Nein
+
+Nur verfügbar bei Werkstücklänge >= 100mm
+
+GM_KETTENBAHN	Kettenbahn mit Reinigungsdurchbruch	String	Ja
+			Nein
+
+Nur verfügbar bei Doppelseitigen Maschinen
+
+GM_MITTENUNTERSTUETZ	Mittenunterstützung	String	Ja
+			Nein
+
+GM_MITTENUNTERSTYP	Mittenunterstützung Typ	String	Nicht absenkbar
+			Werkstückmagazinbereich pneumatisch absenkbar
+			Magazinbereich pneumatisch absenkbar
+			N/A
+
+GM_ERWEITSCHALTSCHRA	Schaltschrank Erweiterung	String	Ja
+			Nein
+
+GM_PNEUMATIKKENNZEIC	Pneumatik Kennzeichnung	String	Ja
+			Nein
